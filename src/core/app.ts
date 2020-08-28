@@ -1,9 +1,32 @@
 import express from 'express';
+import mongoose from 'mongoose';
 
 import routes from './routes';
 
-const app = express();
+class App {
+  public server: express.Application;
 
-app.use(routes);
+  constructor() {
+    this.server = express();
 
-export default app;
+    this.middlewares();
+    this.routes();
+    this.mongoDB();
+  }
+
+  private middlewares(): void {
+    this.server.use(express.json());
+  }
+  private mongoDB(): void {
+    mongoose.connect(`mongodb://localhost:27017/mongo-integration`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  }
+
+  private routes(): void {
+    this.server.use(routes);
+  }
+}
+
+export default new App().server;
