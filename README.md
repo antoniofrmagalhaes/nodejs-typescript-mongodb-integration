@@ -1,6 +1,6 @@
-## NodeJS + Typescript RESTful API CORE (DEV)
+## NodeJS + Typescript MongoDB integration (DEV)
 
-This template provides a basic start point to build a restful application using nodejs + typescript.
+This application uses mongo database with mongoose.
 
 #### Install dependencies
 
@@ -12,7 +12,7 @@ This template provides a basic start point to build a restful application using 
 
 ##### run command
 
-\$ yarn dev:server
+\$ yarn dev
 
 #### Build Application
 
