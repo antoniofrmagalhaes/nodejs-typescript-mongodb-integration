@@ -1,9 +1,13 @@
 import { Router } from 'express';
 
-const route = Router();
+import userRoutes from '../../modules/users/infra/http/routes/user.routes';
 
-route.get('/', (request, response) => {
-  return response.json({ Status: 'ok' });
+const routes = Router();
+
+routes.get('/', (request, response) => {
+  return response.json({ status: 'ok' });
 });
 
-export default route;
+routes.use('/users', userRoutes);
+
+export default routes;
