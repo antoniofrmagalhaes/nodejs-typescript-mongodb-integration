@@ -1,14 +1,14 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
-import Product from '../../mongoose/entities/schemas/Product';
-
 import CreateProductService from '../../../services/CreateProductService';
+import FindProductService from '../../../services/FindProductsService';
 
 class ProductsController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const products = await Product.find();
-    return response.json(products);
+    const findProduct = container.resolve(FindProductService);
+    const result = await findProduct.execute(request.query);
+    return response.json(result);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
