@@ -12,6 +12,10 @@ export interface IProductSchema extends Document {
 
 const ProductSchema = new Schema(
   {
+    active: {
+      type: Boolean,
+      default: true,
+    },
     name: {
       type: String,
       required: true,
@@ -27,11 +31,16 @@ const ProductSchema = new Schema(
     brand: {
       type: String,
     },
+    amount: {
+      type: Number,
+    },
+    tags: [{ type: String }],
     description: {
       type: String,
     },
     image: {
       type: String,
+      default: 'image.png',
     },
     price: {
       type: Number,
