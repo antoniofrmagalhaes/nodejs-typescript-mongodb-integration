@@ -1,8 +1,8 @@
 import { injectable, inject } from 'tsyringe';
 import { Document } from 'mongoose';
 
-import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface Request {
   name: string;
@@ -15,10 +15,18 @@ class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
   public async execute({ name, email, password }: Request): Promise<Document> {
-    const userRepo = new UsersRepository();
-    const user = await userRepo.create({ name, email, password });
+    const password_hash = await this.hashProvider.generateHash(password);
+
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password: password_hash,
+    });
+
     return user;
   }
 }
