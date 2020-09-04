@@ -9,7 +9,8 @@ class FindProductService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
-  ) {}
+  ) { }
+
   public async execute(query: IQuery): Promise<Document[]> {
     const result = await this.productsRepository.find(query);
     return result;

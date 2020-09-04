@@ -17,14 +17,15 @@ class CreateUserService {
     private usersRepository: IUsersRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+  ) { }
+
   public async execute({ name, email, password }: Request): Promise<Document> {
-    const password_hash = await this.hashProvider.generateHash(password);
+    const passwordHash = await this.hashProvider.generateHash(password);
 
     const user = await this.usersRepository.create({
       name,
       email,
-      password: password_hash,
+      password: passwordHash,
     });
 
     return user;

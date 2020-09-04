@@ -9,7 +9,8 @@ class CreateProductService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
-  ) {}
+  ) { }
+
   public async execute(productData: IProductDTO): Promise<Document> {
     const product = await this.productsRepository.create(productData);
     return product;

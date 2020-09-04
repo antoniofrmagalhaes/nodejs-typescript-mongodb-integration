@@ -17,6 +17,7 @@ class App {
   private middlewares(): void {
     this.server.use(express.json());
   }
+
   private mongoDB(): void {
     mongoose.connect(`mongodb://localhost:27017/mongo-integration`, {
       useNewUrlParser: true,
