@@ -12,31 +12,16 @@ export interface IProductSchema extends Document {
 
 const ProductSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    subcategory: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
-    image: {
-      type: String,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
+    active: { type: Boolean, default: true },
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    subcategory: { type: String, required: true },
+    brand: { type: String },
+    amount: { type: Number },
+    tags: [{ type: String }],
+    description: { type: String },
+    image: { type: String, default: 'image.png' },
+    price: { type: Number, required: true },
   },
   {
     timestamps: true,
