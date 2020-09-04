@@ -15,6 +15,7 @@ class ProductsRepository {
     const product = await Product.create(data);
     return product;
   }
+
   public async find(query: IQuery): Promise<Document[]> {
     if (query.category) {
       const result = await Product.find()

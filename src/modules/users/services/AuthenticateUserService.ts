@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import authConfig from '../../../config/AuthConfig';
 
-import IUsersRepository from '../../users/repositories/IUsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import { IUserDocument } from '../infra/mongoose/entities/schemas/User';
 
@@ -25,6 +25,7 @@ class AuthenticateUserService {
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
+
   public async execute({ email, password }: Request): Promise<Response> {
     const user = await this.usersRepository.findByEmailWithPassword(email);
 
@@ -45,7 +46,7 @@ class AuthenticateUserService {
 
     const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: expiresIn,
+      expiresIn,
     });
 
     return {
