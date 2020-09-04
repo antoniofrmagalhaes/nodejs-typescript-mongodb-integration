@@ -17,7 +17,7 @@ class CreateUserService {
     private usersRepository: IUsersRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+  ) { }
 
   public async execute({ name, email, password }: Request): Promise<Document> {
     const passwordHash = await this.hashProvider.generateHash(password);
