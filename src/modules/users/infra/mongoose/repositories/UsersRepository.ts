@@ -1,10 +1,10 @@
 import { Document } from 'mongoose';
 
-import IUserDTO from '../../../DTO/IUserDTO';
+import ICreateUserDTO from '../../../DTO/ICreateUserDTO';
 import User, { IUserDocument } from '../entities/schemas/User';
 
 class UsersRepository {
-  public async create(userData: IUserDTO): Promise<Document> {
+  public async create(userData: ICreateUserDTO): Promise<Document> {
     const user = await User.create(userData);
     return user;
   }
