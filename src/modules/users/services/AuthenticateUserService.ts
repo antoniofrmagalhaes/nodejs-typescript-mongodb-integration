@@ -6,6 +6,7 @@ import authConfig from '../../../config/AuthConfig';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import { IUserDocument } from '../infra/mongoose/entities/schemas/User';
+import AppError from '../../../errors/AppError';
 
 interface Request {
   email: string;
@@ -30,16 +31,16 @@ class AuthenticateUserService {
     const user = await this.usersRepository.findByEmailWithPassword(email);
 
     if (!user) {
-      throw new Error('Incorrect email/password.');
+      throw new AppError('Incorrect email/password.', 401);
     }
 
-    const passwordMatchs = await this.hashProvider.compareHash(
+    const passwordMatches = await this.hashProvider.compareHash(
       password,
       user.password,
     );
 
-    if (!passwordMatchs) {
-      throw new Error('Incorrect email/password.');
+    if (!passwordMatches) {
+      throw new AppError('Incorrect email/password.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;
