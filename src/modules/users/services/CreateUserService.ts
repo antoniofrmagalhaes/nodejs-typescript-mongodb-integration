@@ -1,24 +1,36 @@
+import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
-import { Document } from 'mongoose';
 
 import IUsersRepository from '../repositories/IUsersRepository';
 import { IUserDocument } from '../infra/mongoose/entities/schemas/User';
-
-interface Request {
-  name: string;
-  email: string;
-  password: string;
-}
+import ICreateUserDTO from '../DTO/ICreateUserDTO';
+import AppError from '../../../errors/AppError';
 
 @injectable()
 class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-  ) { }
+  ) {}
 
-  public async execute(request: Request): Promise<IUserDocument> {
-    const user = await this.usersRepository.create(request);
+  public async execute({
+    name,
+    email,
+    password,
+  }: ICreateUserDTO): Promise<IUserDocument> {
+    const checkIfEmailExists = await this.usersRepository.findByEmailWithPassword(
+      email,
+    );
+
+    if (checkIfEmailExists) {
+      throw new AppError('Email address already exists', 401);
+    }
+
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password,
+    });
 
     return user;
   }
