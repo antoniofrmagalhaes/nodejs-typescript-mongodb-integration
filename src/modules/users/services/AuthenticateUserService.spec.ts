@@ -10,7 +10,7 @@ let createUserSerivce: CreateUserService;
 let authenticateUserService: AuthenticateUserService;
 let hashProvider: TestHashProvider;
 
-describe('CreateUserService', () => {
+describe('AuthenticateUserService', () => {
   beforeEach(() => {
     userRepository = new TestUsersRepository();
     hashProvider = new TestHashProvider();
