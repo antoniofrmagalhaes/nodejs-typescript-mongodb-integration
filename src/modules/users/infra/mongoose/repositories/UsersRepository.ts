@@ -7,6 +7,11 @@ class UsersRepository {
     return user;
   }
 
+  public async findByEmail(email: string): Promise<IUserDocument | undefined> {
+    const user = await User.findOne({ email });
+    return user;
+  }
+
   public async findByEmailWithPassword(
     email: string,
   ): Promise<IUserDocument | undefined> {

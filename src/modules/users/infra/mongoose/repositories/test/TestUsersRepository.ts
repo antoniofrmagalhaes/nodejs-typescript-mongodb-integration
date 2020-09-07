@@ -23,6 +23,11 @@ class TestUsersRepository {
     return user;
   }
 
+  public async findByEmail(email: string): Promise<IUserDocument | undefined> {
+    const user = this.users.find(user => user.email === email);
+    return user;
+  }
+
   public async findByEmailWithPassword(
     email: string,
   ): Promise<IUserDocument | undefined> {
