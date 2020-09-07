@@ -1,32 +1,15 @@
-import { Document } from 'mongoose';
-
 import ICreateUserDTO from '../../../DTO/ICreateUserDTO';
 import User, { IUserDocument } from '../entities/schemas/User';
 
 class UsersRepository {
-  public async find(): Promise<IUserDocument[]> {
-    const users = await User.find();
-    return users;
-  }
-
   public async create(userData: ICreateUserDTO): Promise<IUserDocument> {
     const user = await User.create(userData);
     return user;
   }
 
-  public async findById(id: string): Promise<IUserDocument | null> {
-    const user = await User.findById(id);
-    return user;
-  }
-
-  public async findByEmail(email: string): Promise<IUserDocument | null> {
-    const user = await User.findOne({ email });
-    return user;
-  }
-
   public async findByEmailWithPassword(
     email: string,
-  ): Promise<IUserDocument | null> {
+  ): Promise<IUserDocument | undefined> {
     const user = await User.findOne({ email }).select('+password');
     return user;
   }
