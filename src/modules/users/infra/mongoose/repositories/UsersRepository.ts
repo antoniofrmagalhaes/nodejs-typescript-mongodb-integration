@@ -7,6 +7,11 @@ class UsersRepository {
     return user;
   }
 
+  public async findById(user_id: string): Promise<IUserDocument | undefined> {
+    const user = await User.findById(user_id);
+    return user;
+  }
+
   public async findByEmail(email: string): Promise<IUserDocument | undefined> {
     const user = await User.findOne({ email });
     return user;
