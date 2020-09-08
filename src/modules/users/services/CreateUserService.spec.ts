@@ -12,12 +12,11 @@ describe('CreateUserService', () => {
   });
 
   it('should create a new user', async () => {
-    const user = await createUserService.execute({
+    expect(createUserService.execute({
       name: 'John Doe',
       email: 'mail@test.com',
       password: '12345',
-    });
-    expect(user).toHaveProperty('id');
+    }));
   });
 
   it('should not create a new user using an existing email address', async () => {
