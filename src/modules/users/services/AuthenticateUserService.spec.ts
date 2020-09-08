@@ -21,7 +21,7 @@ describe('AuthenticateUserService', () => {
     );
   });
 
-  it('shoud authenticate the user', async () => {
+  it('should authenticate the user', async () => {
     await createUserSerivce.execute({
       name: 'John Doe',
       email: 'mail@test.com',
@@ -36,7 +36,7 @@ describe('AuthenticateUserService', () => {
     expect(user).toHaveProperty('token');
   });
 
-  it('shoud not authenticate a non existing user', async () => {
+  it('should not authenticate a non existing user', async () => {
     await createUserSerivce.execute({
       name: 'John Doe',
       email: 'mail@test.com',
@@ -51,7 +51,7 @@ describe('AuthenticateUserService', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('shoud not authenticate the user if the password is wrong', async () => {
+  it('should not authenticate the user if the password is wrong', async () => {
     await createUserSerivce.execute({
       name: 'John Doe',
       email: 'mail@test.com',
