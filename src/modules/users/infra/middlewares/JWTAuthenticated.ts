@@ -10,7 +10,7 @@ interface IPayload {
   sub: string;
 }
 
-export default function ensureAuthentication(
+export default function JWTAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
