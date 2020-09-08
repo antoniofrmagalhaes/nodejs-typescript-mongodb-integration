@@ -13,13 +13,13 @@ const UserSchema: Schema = new Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      lowercase: true
+      lowercase: true,
     },
     avatar: {
       type: String,
@@ -27,7 +27,7 @@ const UserSchema: Schema = new Schema(
     password: {
       type: String,
       required: true,
-      select: false
+      select: false,
     },
   },
   {
@@ -36,10 +36,10 @@ const UserSchema: Schema = new Schema(
 );
 
 // Document middlewares
-UserSchema.pre<IUserDocument>("save", async function (next) {
+UserSchema.pre<IUserDocument>('save', async function (next) {
   const hashProvider = new BcryptHashProvider();
-  if (this.isModified("password")) {
-    this.password = await hashProvider.generateHash((this.password))
+  if (this.isModified('password')) {
+    this.password = await hashProvider.generateHash(this.password);
   }
 });
 
